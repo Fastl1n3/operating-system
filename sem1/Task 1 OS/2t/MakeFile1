@@ -1,0 +1,15 @@
+all: hello
+
+hello: hello.o libhello_static.a
+	gcc -o hel hello.o -L. -lhello_static
+
+hello.o: hello.c
+	gcc -c hello.c
+
+libhello_static.a: hello_from_static_lib.c
+	gcc -c hello_from_static_lib.c
+	ar r libhello_static.a hello_from_static_lib.o
+
+clean:
+	rm -f *.o *.a hel
+

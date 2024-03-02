@@ -1,0 +1,14 @@
+all: hello
+
+hello: hello.o libhello_dynamic.so
+	gcc -o hel hello.o -L. -lhello_dynamic -Wl,-rpath,.
+
+hello.o: hello.c
+	gcc -c hello.c
+
+libhello_dynamic.so: hello_from_dynamic_lib.c
+	gcc -fpic -shared -o libhello_dynamic.so hello_from_dynamic_lib.c
+
+clean:
+	rm -f *.o *.so hel
+
